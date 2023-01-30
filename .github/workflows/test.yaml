@@ -26,3 +26,5 @@ jobs:
 
       - name: Semantic release dry-run
         run: npm run semantic-release -- --dry-run
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
