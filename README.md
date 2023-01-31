@@ -1,6 +1,10 @@
 # Cloudflare DDNS
 
+![version](https://img.shields.io/github/package-json/v/Pragma8123/cloudflare-ddns-ts?style=for-the-badge) ![build status](https://img.shields.io/github/actions/workflow/status/Pragma8123/cloudflare-ddns-ts/build_and_push.yaml?event=release&style=for-the-badge) ![license](https://img.shields.io/github/license/Pragma8123/cloudflare-ddns-ts?style=for-the-badge)
+
 This is a small Dynamic DNS client for [Cloudflare's Free DNS Service](https://cloudflare.com/dns) inspired by [oznu's](https://github.com/oznu) [cloudflare-ddns](https://github.com/oznu/docker-cloudflare-ddns) project. oznu's client is no longer maintained, so this project is intended to offer an alternative.
+
+There are pre-built docker images available for amd64, arm64, and armv7 platforms allowing you to run it on nearly any host including both the 32-bit and 64-bit Raspberry Pi models.
 
 ## Usage
 
@@ -38,7 +42,7 @@ services:
 
 - `RECORDS` - Comma-separated list of DNS records (subdomains) to update. Include @ in your list to update the root domain. Defaults to `@` (just the root DNS record).
 - `PROXIED` - Set to `true` if you want to use Cloudflare's security proxy. Defaults to `false`.
-- `TZ` - Set timezone for DNS update cron job. Can be any TZ Database name (i.e. America/New_York) - Defaults to `UTC`.
+- `TZ` - Set timezone for DNS update cron job. Can be any TZ Database name (i.e. America/New_York). Defaults to `UTC`.
 - `CRON` - [Cron schedule](https://crontab.guru/) for updating DNS records. Defaults to `@daily`.
 
 ## Cloudflare API Token
@@ -49,6 +53,6 @@ To create a token, navigate to your [Cloudflare Dashboard](https://dash.cloudfla
 
 1. Click 'Create Token'.
 2. Use the "Edit zone DNS" API token template.
-3. Under "Zone Resources" use the drop-down to select a specific zone (your domain). Then click "Continue to summary"
+3. Under "Zone Resources" use the drop-down to select a specific zone (yor domain). Then click "Continue to summary"
 4. You should see your domain with **DNS:Edit** to the right.
 5. Click "Create Token" and you should now see your API token.
