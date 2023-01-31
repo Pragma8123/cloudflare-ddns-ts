@@ -1,6 +1,6 @@
 {
   "name": "cloudflare-ddns-ts",
-  "version": "0.0.0-development",
+  "version": "1.0.1",
   "description": "",
   "author": "",
   "private": true,
@@ -91,6 +91,7 @@
       "@semantic-release/release-notes-generator",
       "@semantic-release/changelog",
       "@semantic-release/git",
+      "@semantic-release/npm",
       "@semantic-release/github"
     ]
   }
