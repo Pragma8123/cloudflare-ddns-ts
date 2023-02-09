@@ -26,6 +26,7 @@ export class EnvironmentVariables {
   @IsOptional()
   RECORDS: string;
 
+  @Transform(({ value }) => String(value).toLowerCase() === 'true')
   @IsBoolean()
   @IsOptional()
   PROXIED?: boolean;
