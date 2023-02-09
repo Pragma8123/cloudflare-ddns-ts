@@ -62,7 +62,6 @@ export class AppService
   async updateDynamicDns() {
     try {
       const ip = await this.externalIpService.getExternalIp();
-      this.logger.log(`External IP: ${ip}`);
 
       await this.cloudflareService.updateDnsRecords(
         this.ZONE,
@@ -70,7 +69,12 @@ export class AppService
         ip,
         this.PROXIED,
       );
-      this.logger.log(`Updated DNS records: ${this.RECORDS.join(', ')}`);
+
+      this.logger.log(
+        `Updated DNS records: ${this.RECORDS.join(', ')} | (${ip}) [${
+          this.PROXIED ? 'proxied' : 'unproxied'
+        }]`,
+      );
     } catch (error) {
       this.logger.error(error);
     }
