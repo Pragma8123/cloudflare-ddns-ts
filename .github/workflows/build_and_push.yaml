@@ -38,7 +38,9 @@ jobs:
           images: |
             ${{ github.repository }}
             ghcr.io/${{ github.repository }}
-          tags: ${{ github.ref_name }}
+          tags: |
+            ${{ github.ref_name }}
+            latest
 
       - name: Build and push
         uses: docker/build-push-action@v4
