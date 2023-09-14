@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/Pragma8123/cloudflare-ddns-ts/compare/v1.0.3...v1.0.4) (2023-09-14)
+
+
+### Bug Fixes
+
+* **config:** fix issue with API token validation ([1ea48d2](https://github.com/Pragma8123/cloudflare-ddns-ts/commit/1ea48d207b1b53ea5e719b7100dbadc5730dfffb))
+
 ## [1.0.3](https://github.com/Pragma8123/cloudflare-ddns-ts/compare/v1.0.2...v1.0.3) (2023-02-09)
 
 
