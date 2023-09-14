@@ -5,17 +5,11 @@ import {
   IsFQDN,
   IsOptional,
   IsString,
-  Matches,
   validateSync,
 } from 'class-validator';
 
-const API_TOKEN_REGEX = /^[a-zA-Z0-9-]{40}$/;
-
 export class EnvironmentVariables {
   @IsString()
-  @Matches(API_TOKEN_REGEX, {
-    message: 'API_TOKEN must be a valid Cloudflare API token',
-  })
   API_TOKEN: string;
 
   @IsFQDN()
