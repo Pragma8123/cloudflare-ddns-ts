@@ -1,42 +1,61 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable, Logger } from '@nestjs/common';
+import { Expose } from 'class-transformer';
 import { firstValueFrom } from 'rxjs';
 
-export type VerifyTokenResponse = {
-  errors: { code: number; message: string }[];
-  result: {
-    id: string;
-    status: string;
-  };
-  success: boolean;
-};
+export class CloudflareError {
+  public code: number;
+  public message: string;
+}
 
-export type PatchDnsRecordResponse = {
-  errors: { code: number; message: string }[];
-  messages: { code: number; message: string }[];
-  success: boolean;
-};
+export class VerifyTokenResult {
+  public id: string;
+  public status: string;
+}
 
-export type ListZonesResponse = {
-  errors: { code: number; message: string }[];
-  result: {
-    id: string;
-    name: string;
-  }[];
-  success: boolean;
-};
+export class VerifyTokenResponse {
+  public errors: CloudflareError[];
+  public result: VerifyTokenResult;
+  public success: boolean;
+}
 
-export type ListDnsRecordsResponse = {
-  errors: { code: number; message: string }[];
-  result: {
-    id: string;
-    name: string;
-    content: string;
-    type: string;
-    zone_name: string;
-  }[];
-  success: boolean;
-};
+export class PatchDnsRecordMessage {
+  public code: number;
+  public message: string;
+}
+
+export class PatchDnsRecordResponse {
+  public errors: CloudflareError[];
+  public messages: PatchDnsRecordMessage[];
+  public success: boolean;
+}
+
+export class Zone {
+  public id: string;
+  public name: string;
+}
+
+export class ListZonesResponse {
+  public errors: CloudflareError[];
+  public result: Zone[];
+  public success: boolean;
+}
+
+export class DnsRecord {
+  public id: string;
+  public name: string;
+  public content: string;
+  public type: string;
+
+  @Expose({ name: 'zone_name' })
+  public zoneName: string;
+}
+
+export class ListDnsRecordsResponse {
+  public errors: CloudflareError[];
+  public result: DnsRecord[];
+  public success: boolean;
+}
 
 @Injectable()
 export class CloudflareProvider {

@@ -2,9 +2,9 @@ import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { firstValueFrom } from 'rxjs';
 
-export type GetExternalIpResponse = {
-  ip: string;
-};
+export class GetExternalIpResponse {
+  public ip: string;
+}
 
 @Injectable()
 export class ExternalIpProvider {

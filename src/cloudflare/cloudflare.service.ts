@@ -66,7 +66,7 @@ export class CloudflareService {
     return records.filter((record) => {
       return (
         (recordNames.includes(record.name.split('.')[0]) ||
-          (record.name === record.zone_name && recordNames.includes('@'))) &&
+          (record.name === record.zoneName && recordNames.includes('@'))) &&
         record.type === 'A'
       );
     });
