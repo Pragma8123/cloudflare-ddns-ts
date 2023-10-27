@@ -12,7 +12,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: lts/hydrogen
+          node-version: 20.9.0
           cache: npm
 
       - name: Install dependencies
