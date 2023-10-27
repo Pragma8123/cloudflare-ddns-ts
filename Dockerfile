@@ -1,4 +1,5 @@
-FROM node:18.13.0-slim AS build
+### Build
+FROM node:20.9.0-slim AS build
 
 USER node:node
 
@@ -15,7 +16,8 @@ RUN npm run test
 RUN npm run build
 
 
-FROM node:18.13.0-slim
+### Run
+FROM node:20.9.0-slim
 
 USER node:node
 
