@@ -53,6 +53,6 @@ To create a token, navigate to your [Cloudflare Dashboard](https://dash.cloudfla
 
 1. Click 'Create Token'.
 2. Use the "Edit zone DNS" API token template.
-3. Under "Zone Resources" use the drop-down to select a specific zone (yor domain). Then click "Continue to summary"
+3. Under "Zone Resources" use the drop-down to select a specific zone (your domain). Then click "Continue to summary"
 4. You should see your domain with **DNS:Edit** to the right.
 5. Click "Create Token" and you should now see your API token.
