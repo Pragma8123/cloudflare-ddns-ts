@@ -1,5 +1,5 @@
 ### Build
-FROM node:20.9.0-slim AS build
+FROM node:iron-slim AS build
 
 USER node:node
 
@@ -17,7 +17,7 @@ RUN npm run build
 
 
 ### Run
-FROM node:20.9.0-slim
+FROM node:iron-slim
 
 USER node:node
 
