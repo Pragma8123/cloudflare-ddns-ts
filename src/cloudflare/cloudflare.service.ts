@@ -9,6 +9,6 @@ export class CloudflareService {
 
   constructor(private readonly configService: ConfigService) {
     const apiToken = this.configService.get<string>('API_TOKEN');
-    this.cf = new Cloudflare({ token: apiToken });
+    this.cf = new Cloudflare({ apiToken });
   }
 }
