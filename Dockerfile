@@ -11,9 +11,7 @@ RUN npm ci
 
 COPY --chown=node:node . .
 
-RUN npm run test
-
-RUN npm run build
+RUN npm run test && npm run build
 
 
 ### Run
