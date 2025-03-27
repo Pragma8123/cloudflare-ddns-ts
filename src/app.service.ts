@@ -37,11 +37,11 @@ export class AppService
   }
 
   async onApplicationBootstrap() {
-    const success = await this.cloudflareService.verifyToken();
-    if (!success) {
-      throw new Error('Cloudflare token is invalid');
-    }
-    this.logger.log('Cloudflare token is valid');
+    // const success = await this.cloudflareService.verifyToken();
+    // if (!success) {
+    //   throw new Error('Cloudflare token is invalid');
+    // }
+    // this.logger.log('Cloudflare token is valid');
 
     this.cronJob = new CronJob(
       this.CRON,
@@ -63,12 +63,12 @@ export class AppService
     try {
       const ip = await this.externalIpService.getExternalIp();
 
-      await this.cloudflareService.updateDnsRecords(
-        this.ZONE,
-        this.RECORDS,
-        ip,
-        this.PROXIED,
-      );
+      // await this.cloudflareService.updateDnsRecords(
+      //   this.ZONE,
+      //   this.RECORDS,
+      //   ip,
+      //   this.PROXIED,
+      // );
 
       this.logger.log(
         `Updated DNS records: ${this.RECORDS.join(', ')} | (${ip}) [${
