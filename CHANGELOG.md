@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/Pragma8123/cloudflare-ddns-ts/compare/v1.0.4...v1.0.5) (2025-04-19)
+
+
+### Bug Fixes
+
+* refactor/official cloudflare bindings ([#232](https://github.com/Pragma8123/cloudflare-ddns-ts/issues/232)) ([07004cb](https://github.com/Pragma8123/cloudflare-ddns-ts/commit/07004cb24548edf445b7548b811a0796cc10c606))
+
 ## [1.0.4](https://github.com/Pragma8123/cloudflare-ddns-ts/compare/v1.0.3...v1.0.4) (2023-09-14)
 
 
