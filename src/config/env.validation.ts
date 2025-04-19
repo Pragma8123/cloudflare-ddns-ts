@@ -27,10 +27,6 @@ export class EnvironmentVariables {
 
   @IsString()
   @IsOptional()
-  TZ?: string;
-
-  @IsString()
-  @IsOptional()
   CRON?: string;
 }
 

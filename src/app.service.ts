@@ -16,7 +16,6 @@ export class AppService
 {
   private readonly logger = new Logger(AppService.name);
   private cronJob: CronJob;
-  private API_TOKEN: string;
   private ZONE: string;
   private RECORDS: string[];
   private PROXIED: boolean;
@@ -28,27 +27,24 @@ export class AppService
     private readonly externalIpService: ExternalIpService,
     private readonly cloudflareService: CloudflareService,
   ) {
-    this.API_TOKEN = this.configService.get('API_TOKEN');
     this.ZONE = this.configService.get('ZONE');
     this.RECORDS = this.configService.get('RECORDS', ['@']);
     this.PROXIED = this.configService.get('PROXIED', false);
-    this.TZ = this.configService.get('TZ', 'UTC');
     this.CRON = this.configService.get('CRON', '@daily');
   }
 
   async onApplicationBootstrap() {
-    // const success = await this.cloudflareService.verifyToken();
-    // if (!success) {
-    //   throw new Error('Cloudflare token is invalid');
-    // }
-    // this.logger.log('Cloudflare token is valid');
+    const success = await this.cloudflareService.verifyToken();
+    if (!success) {
+      throw new Error('Cloudflare token is invalid');
+    }
+    this.logger.log('Cloudflare token is valid');
 
     this.cronJob = new CronJob(
       this.CRON,
       () => this.updateDynamicDns(),
       null,
       true,
-      this.TZ,
     );
     this.logger.log(`DNS update job started: "${this.CRON}" (${this.TZ})`);
   }
@@ -63,12 +59,11 @@ export class AppService
     try {
       const ip = await this.externalIpService.getExternalIp();
 
-      // await this.cloudflareService.updateDnsRecords(
-      //   this.ZONE,
-      //   this.RECORDS,
-      //   ip,
-      //   this.PROXIED,
-      // );
+      await Promise.all(
+        this.RECORDS.map((r) =>
+          this.cloudflareService.updateARecord(this.ZONE, r, ip, this.PROXIED),
+        ),
+      );
 
       this.logger.log(
         `Updated DNS records: ${this.RECORDS.join(', ')} | (${ip}) [${
