@@ -1,74 +1,82 @@
 import { Injectable, Logger } from '@nestjs/common';
-import {
-  CloudflareProvider,
-  ListDnsRecordsResponse,
-} from './cloudflare.provider';
+import { ConfigService } from '@nestjs/config';
+import Cloudflare from 'cloudflare';
+import { EnvironmentVariables } from 'src/config/env.validation';
+
+interface VerifyTokenResponse {
+  success: boolean;
+}
 
 @Injectable()
 export class CloudflareService {
   private readonly logger = new Logger(CloudflareService.name);
+  private cf: Cloudflare;
 
-  constructor(private readonly cloudflareProvider: CloudflareProvider) {}
+  constructor(
+    private readonly configService: ConfigService<EnvironmentVariables>,
+  ) {
+    this.cf = new Cloudflare({
+      apiToken: configService.get<string>('API_TOKEN'),
+    });
+  }
 
   async verifyToken(): Promise<boolean> {
-    const { success } = await this.cloudflareProvider.verifyToken();
-    return success;
+    try {
+      const response = await this.cf.request<any, VerifyTokenResponse>({
+        method: 'get',
+        path: '/user/tokens/verify',
+      });
+      return response.success;
+    } catch (error) {
+      this.logger.error('Could not validate API Token', error);
+      return false;
+    }
   }
 
-  async updateDnsRecords(
-    zone: string,
-    recordNames: string[],
+  async updateARecord(
+    zoneName: string,
+    recordName: string,
     ip: string,
-    proxied: boolean,
-  ) {
-    const zoneId = await this.getZoneId(zone);
-    const recordIds = await this.getRecordIds(zoneId, recordNames);
-    return await Promise.all(
-      recordIds.map((recordId) =>
-        this.updateDnsRecord(zoneId, recordId, ip, proxied),
-      ),
-    );
+    proxied: boolean = false,
+  ): Promise<void> {
+    try {
+      const zoneId = await this.getZoneId(zoneName);
+      const fqdn = recordName === '@' ? zoneName : `${recordName}.${zoneName}`;
+
+      const { result } = await this.cf.dns.records.list({
+        zone_id: zoneId,
+        name: { exact: fqdn },
+      });
+
+      if (!result[0]) {
+        // Record does not exist yet, create a new record
+        this.logger.debug('creating new record');
+        await this.cf.dns.records.create({
+          zone_id: zoneId,
+          type: 'A',
+          name: fqdn,
+          content: ip,
+          proxied,
+        });
+      } else {
+        this.logger.debug('updating existing record');
+        const recordId = result[0].id;
+        await this.cf.dns.records.edit(recordId, {
+          zone_id: zoneId,
+          content: ip,
+          proxied,
+        });
+      }
+    } catch (error) {
+      this.logger.error('Error updating DNS record:', error.message);
+    }
   }
 
-  private async getZoneId(zone: string): Promise<string> {
-    const { result } = await this.cloudflareProvider.listZones();
-    const zoneResult = result.find((zoneResult) => zoneResult.name === zone);
-    return zoneResult.id;
-  }
-
-  private async getRecordIds(
-    zoneId: string,
-    recordNames: string[],
-  ): Promise<string[]> {
-    const { result } = await this.cloudflareProvider.listDnsRecords(zoneId);
-    const recordResults = this.filterRecords(result, recordNames);
-    return recordResults.map((recordResult) => recordResult.id);
-  }
-
-  private async updateDnsRecord(
-    zoneId: string,
-    recordId: string,
-    ip: string,
-    proxied: boolean,
-  ) {
-    return await this.cloudflareProvider.patchDnsRecord(
-      zoneId,
-      recordId,
-      ip,
-      proxied,
-    );
-  }
-
-  private filterRecords(
-    records: ListDnsRecordsResponse['result'],
-    recordNames: string[],
-  ) {
-    return records.filter((record) => {
-      return (
-        (recordNames.includes(record.name.split('.')[0]) ||
-          (record.name === record.zoneName && recordNames.includes('@'))) &&
-        record.type === 'A'
-      );
-    });
+  private async getZoneId(name: string): Promise<string> {
+    const { result } = await this.cf.zones.list({ name });
+    if (!result[0]) {
+      throw new Error(`Zone "${name}" not found`);
+    }
+    return result[0].id;
   }
 }
