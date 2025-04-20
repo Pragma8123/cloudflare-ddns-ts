@@ -1,5 +1,5 @@
 ### Build
-FROM node:iron-slim AS build
+FROM node:jod-slim AS build
 
 USER node:node
 
@@ -15,7 +15,7 @@ RUN npm run test && npm run build
 
 
 ### Run
-FROM node:iron-slim
+FROM node:jod-slim
 
 USER node:node
 
