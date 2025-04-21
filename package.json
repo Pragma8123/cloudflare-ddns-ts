@@ -22,7 +22,7 @@
     "semantic-release": "semantic-release"
   },
   "dependencies": {
-    "@nestjs/axios": "^3.0.2",
+    "@nestjs/axios": "^4.0.0",
     "@nestjs/common": "^9.4.0",
     "@nestjs/config": "^3.3.0",
     "@nestjs/core": "^9.3.12",
