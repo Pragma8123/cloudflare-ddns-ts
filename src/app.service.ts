@@ -31,6 +31,10 @@ export class AppService
     this.RECORDS = this.configService.get('RECORDS', ['@']);
     this.PROXIED = this.configService.get('PROXIED', false);
     this.CRON = this.configService.get('CRON', '@daily');
+    this.TZ = this.configService.get(
+      'TZ',
+      Intl.DateTimeFormat().resolvedOptions().timeZone,
+    );
   }
 
   async onApplicationBootstrap() {

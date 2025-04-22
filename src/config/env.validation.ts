@@ -28,6 +28,10 @@ export class EnvironmentVariables {
   @IsString()
   @IsOptional()
   CRON?: string;
+
+  @IsString()
+  @IsOptional()
+  TZ?: string;
 }
 
 export function validate(config: Record<string, unknown>) {

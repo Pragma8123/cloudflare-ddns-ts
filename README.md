@@ -42,7 +42,7 @@ services:
 
 - `RECORDS` - Comma-separated list of DNS records (subdomains) to update. Include @ in your list to update the root domain. Defaults to `@` (just the root DNS record).
 - `PROXIED` - Set to `true` if you want to use Cloudflare's security proxy. Defaults to `false`.
-- `TZ` - Set timezone for DNS update cron job. Can be any TZ Database name (i.e. America/New_York). Defaults to `UTC`.
+- `TZ` - Set timezone for DNS update cron job. Can be any TZ Database name (i.e. America/New_York). Defaults to system timezone.
 - `CRON` - [Cron schedule](https://crontab.guru/) for updating DNS records. Defaults to `@daily`.
 - `LOG_LEVEL` - Comma-separated list of log levels that will be logged. Defaults to `log,error,warn`. Possible options`[log,error,warn,debug,verbose]`.
 
