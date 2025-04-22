@@ -70,7 +70,7 @@ export class AppService
       );
 
       this.logger.log(
-        `Updated DNS records: ${this.RECORDS.join(', ')} | (${ip}) [${
+        `Updated DNS records [${this.ZONE}]: ${this.RECORDS.join(',')} | (${ip}) [${
           this.PROXIED ? 'proxied' : 'unproxied'
         }]`,
       );
