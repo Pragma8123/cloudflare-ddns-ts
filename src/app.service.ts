@@ -46,7 +46,9 @@ export class AppService
       null,
       true,
     );
-    this.logger.log(`DNS update job started: "${this.CRON}" (${this.TZ})`);
+    this.logger.log(
+      `DNS update job started [${this.ZONE}]: "${this.CRON}" (${this.TZ})`,
+    );
   }
 
   onApplicationShutdown() {
@@ -58,6 +60,8 @@ export class AppService
   async updateDynamicDns() {
     try {
       const ip = await this.externalIpService.getExternalIp();
+
+      this.logger.log(`Got external IP: ${ip}`);
 
       await Promise.all(
         this.RECORDS.map((r) =>

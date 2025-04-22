@@ -49,8 +49,7 @@ export class CloudflareService {
       });
 
       if (!result[0]) {
-        // Record does not exist yet, create a new record
-        this.logger.debug('creating new record');
+        this.logger.debug(`creating new record: ${fqdn}`);
         await this.cf.dns.records.create({
           zone_id: zoneId,
           type: 'A',
@@ -59,7 +58,7 @@ export class CloudflareService {
           proxied,
         });
       } else {
-        this.logger.debug('updating existing record');
+        this.logger.debug(`updating existing record: ${fqdn}`);
         const recordId = result[0].id;
         await this.cf.dns.records.edit(recordId, {
           zone_id: zoneId,

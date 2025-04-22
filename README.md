@@ -44,6 +44,7 @@ services:
 - `PROXIED` - Set to `true` if you want to use Cloudflare's security proxy. Defaults to `false`.
 - `TZ` - Set timezone for DNS update cron job. Can be any TZ Database name (i.e. America/New_York). Defaults to `UTC`.
 - `CRON` - [Cron schedule](https://crontab.guru/) for updating DNS records. Defaults to `@daily`.
+- `LOG_LEVEL` - Comma-separated list of log levels that will be logged. Defaults to `log,error,warn`. Possible options`[log,error,warn,debug,verbose]`.
 
 ## Cloudflare API Token
 
