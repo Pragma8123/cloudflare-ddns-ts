@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { ExternalIpProvider } from './external-ip.provider';
+import { publicIpv4 } from 'public-ip';
 
 @Injectable()
 export class ExternalIpService {
-  constructor(private readonly externalIpProvider: ExternalIpProvider) {}
+  constructor() {}
 
   async getExternalIp(): Promise<string> {
-    const { ip } = await this.externalIpProvider.getExternalIp();
-    return ip;
+    return await publicIpv4();
   }
 }
