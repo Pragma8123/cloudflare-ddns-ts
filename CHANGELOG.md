@@ -1,3 +1,16 @@
+# [1.1.0](https://github.com/Pragma8123/cloudflare-ddns-ts/compare/v1.0.5...v1.1.0) (2025-04-22)
+
+
+### Bug Fixes
+
+* fix timezone behavior ([c51c88a](https://github.com/Pragma8123/cloudflare-ddns-ts/commit/c51c88ac350fa2d9e40faf0dceb740552d4641e2))
+
+
+### Features
+
+* **logging:** add additional information to the normal logs ([9865b47](https://github.com/Pragma8123/cloudflare-ddns-ts/commit/9865b476a49d69283fdd42cef0e29bd6a12e443e))
+* **logging:** add configurable log levels ([eba11c5](https://github.com/Pragma8123/cloudflare-ddns-ts/commit/eba11c52f684cef5bd1e46fd65e8a3471babb3f7))
+
 ## [1.0.5](https://github.com/Pragma8123/cloudflare-ddns-ts/compare/v1.0.4...v1.0.5) (2025-04-19)
 
 
