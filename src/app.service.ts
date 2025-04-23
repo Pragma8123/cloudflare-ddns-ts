@@ -64,14 +64,18 @@ export class AppService
   async updateDynamicDns() {
     try {
       const ip = await this.externalIpService.getExternalIp();
-
       this.logger.log(`Got external IP: ${ip}`);
 
-      await Promise.all(
+      const results = await Promise.allSettled(
         this.RECORDS.map((r) =>
           this.cloudflareService.updateARecord(this.ZONE, r, ip, this.PROXIED),
         ),
       );
+      results.forEach((r) => {
+        if (r.status === 'rejected') {
+          this.logger.error(r.reason);
+        }
+      });
 
       this.logger.log(
         `Updated DNS records [${this.ZONE}]: ${this.RECORDS.join(',')} | (${ip}) [${
