@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/Pragma8123/cloudflare-ddns-ts/compare/v1.1.0...v1.1.1) (2025-04-23)
+
+
+### Bug Fixes
+
+* fix issue with some records not updating if one fails ([8c2c663](https://github.com/Pragma8123/cloudflare-ddns-ts/commit/8c2c6633b51095d79b3d5bdacbd8734d3bfdd364))
+
 # [1.1.0](https://github.com/Pragma8123/cloudflare-ddns-ts/compare/v1.0.5...v1.1.0) (2025-04-22)
 
 
