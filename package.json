@@ -30,7 +30,7 @@
     "axios": "^1.9.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.2",
-    "cloudflare": "^4.2.0",
+    "cloudflare": "^4.4.1",
     "public-ip": "^7.0.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.2.0"
