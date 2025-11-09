@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/Pragma8123/cloudflare-ddns-ts/compare/v1.1.1...v1.1.2) (2025-11-09)
+
+
+### Bug Fixes
+
+* **cloudflare:** fix compatibility with new cloudflare API ([f0c0a2a](https://github.com/Pragma8123/cloudflare-ddns-ts/commit/f0c0a2aa730025f8a7150aace5c0b1eceff3cd86))
+
 ## [1.1.1](https://github.com/Pragma8123/cloudflare-ddns-ts/compare/v1.1.0...v1.1.1) (2025-04-23)
 
 
