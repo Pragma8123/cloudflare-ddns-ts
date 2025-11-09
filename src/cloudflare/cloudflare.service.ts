@@ -56,14 +56,18 @@ export class CloudflareService {
           name: fqdn,
           content: ip,
           proxied,
+          ttl: 1,
         });
       } else {
         this.logger.debug(`updating existing record: ${fqdn}`);
         const recordId = result[0].id;
         await this.cf.dns.records.edit(recordId, {
           zone_id: zoneId,
+          type: 'A',
+          name: fqdn,
           content: ip,
           proxied,
+          ttl: 1,
         });
       }
     } catch (error) {
